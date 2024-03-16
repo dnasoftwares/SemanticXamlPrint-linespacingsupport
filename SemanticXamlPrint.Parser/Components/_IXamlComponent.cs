@@ -11,5 +11,6 @@ namespace SemanticXamlPrint.Parser.Components
         void AddChild(IXamlComponent child);
         List<IXamlComponent> Children { get; }
         List<XamlComponentCustomProperty> CustomProperties { get; }
+        IEnumerable<string> ReferencedFontFamilies { get; }
     }
 }

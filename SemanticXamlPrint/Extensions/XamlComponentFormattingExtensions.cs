@@ -19,7 +19,8 @@ namespace SemanticXamlPrint
                                 (string.IsNullOrEmpty(styleFmt.FontStyle) ? parentFormatting.Font.Style : GetOverridedFontStyle(styleFmt.FontStyle))),
 
                 StringFormat = string.IsNullOrEmpty(styleFmt.Align) ? parentFormatting.StringFormat : GetConvertedStringFormat(styleFmt.Align),
-                Brush = string.IsNullOrEmpty(styleFmt.Color) ? parentFormatting.Brush : GetSolidBrushFromColorString(styleFmt.Color)
+                Brush = string.IsNullOrEmpty(styleFmt.Color) ? parentFormatting.Brush : GetSolidBrushFromColorString(styleFmt.Color),
+                FontLineHeight = styleFmt.LineHeight != int.MinValue ? styleFmt.LineHeight : parentFormatting.FontLineHeight
             };
         }
 
@@ -116,7 +117,9 @@ namespace SemanticXamlPrint
     public class ComponentDrawingFormatting
     {
         public Font Font { get; set; }
+        public int FontLineHeight { get; set; }
         public StringFormat StringFormat { get; set; }
         public Brush Brush { get; set; }
+
     }
 }

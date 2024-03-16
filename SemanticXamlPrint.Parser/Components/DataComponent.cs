@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SemanticXamlPrint.Parser.Components
 {
@@ -37,6 +38,19 @@ namespace SemanticXamlPrint.Parser.Components
             if (child?.Name == nameof(TextBlockComponent))
             {
                 this.Text = (child.ToString()) ?? this.Text;
+            }
+        }
+        public IEnumerable<string> ReferencedFontFamilies
+        {
+            get
+            {
+                if (Font != null) yield return Font;
+                if (Children == null || Children.Count == 0) yield break;
+
+                foreach (var font in Children.SelectMany(child => child.ReferencedFontFamilies))
+                {
+                    yield return font;
+                }
             }
         }
     }

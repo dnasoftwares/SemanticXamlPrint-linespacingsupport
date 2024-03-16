@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
+using NarcityMedia.DrawStringLineHeight;
 
 namespace SemanticXamlPrint
 {
@@ -119,16 +120,16 @@ namespace SemanticXamlPrint
             text = text ?? string.Empty;
             if (textWrap && (int)graphics.MeasureString(text, cellFmt.Font).Width > z)
             {
-                SizeF size = graphics.MeasureString(text, cellFmt.Font, (int)z);
+                SizeF size = graphics.MeasureStringLineHeight(text, cellFmt.Font, (int)z,cellFmt.Font.Height+cellFmt.FontLineHeight);
                 RectangleF layoutF = new RectangleF(new PointF(x, y), size);
-                graphics.DrawString(text, cellFmt.Font, cellFmt.Brush, layoutF, cellFmt.StringFormat);
+                graphics.DrawString(text, cellFmt.Font, cellFmt.Brush,(int)z,cellFmt.Font.Height+cellFmt.FontLineHeight, layoutF, cellFmt.StringFormat);
                 return (int)layoutF.Height;
             }
             else
             {
-                SizeF size = graphics.MeasureString(text, cellFmt.Font, (int)z, new StringFormat { FormatFlags = StringFormatFlags.NoWrap });
+                SizeF size = graphics.MeasureStringLineHeight(text, cellFmt.Font, int.MaxValue,cellFmt.Font.Height+cellFmt.FontLineHeight);
                 Rectangle layout = new Rectangle((int)x, (int)y, (int)z, (int)size.Height);
-                graphics.DrawString(text, cellFmt.Font, cellFmt.Brush, layout, cellFmt.StringFormat);
+                graphics.DrawString(text, cellFmt.Font, cellFmt.Brush,(int)z, cellFmt.Font.Height + cellFmt.FontLineHeight, layout, cellFmt.StringFormat);
                 return layout.Height;
             }
         }

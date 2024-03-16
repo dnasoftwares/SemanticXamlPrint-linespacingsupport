@@ -38,7 +38,23 @@ namespace SemanticXamlPrint
             return _currentLineY;
         }
 
-        [Obsolete("This method is obsolete, please use DrawXamlComponent an Extension of: PrintPageEventArgs")]
-        public static float DrawXamlComponent(this Graphics graphics, IXamlComponent xamlComponent, float yPositionDraw = 0) => throw new Exception("method is obsolete, please use DrawXamlComponent an Extension of: PrintPageEventArgs");
+        [Obsolete("This method is Debugging use only, please use DrawXamlComponent an Extension of: PrintPageEventArgs")]
+        public static float DrawXamlComponent(this Graphics graphics, IXamlComponent xamlComponent,
+            float yPositionDraw = 0)
+        {
+            if (xamlComponent == null) return yPositionDraw;
+            if (xamlComponent.Type != typeof(TemplateComponent)) throw new Exception($"Root Component must be that of a [{nameof(TemplateComponent)}] but currently is: [{xamlComponent.Name}]");
+            TemplateComponent template = (TemplateComponent)xamlComponent;
+            ComponentDrawingFormatting TemplateFormatting = template.GetSystemDrawingProperties(Defaults.Formatting) ?? throw new Exception("Default template properties are missing");
+            float _currentLineY = yPositionDraw + (float)template.MarginTop;
+            graphics.PageUnit = GraphicsUnit.Inch;
+            graphics.PageScale = 0.01f;
+            //Draw Root Component Children
+            for (int i = 0; i < template?.Children?.Count; i++)
+            {
+                _currentLineY = graphics.DrawComponent(template?.Children[i], TemplateFormatting, template.MarginLeft, _currentLineY, graphics.VisibleClipBounds.Width - (template.MarginLeft + template.MarginRight));
+            }
+            return _currentLineY;
+        }
     }
 }

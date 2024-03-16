@@ -29,6 +29,14 @@ namespace SemanticXamlPrint.Parser.Components
             catch { return false; }
         }
         public void AddChild(IXamlComponent child) => throw new Exception($"property of type {Name} can not accept childrens");
+        public IEnumerable<string> ReferencedFontFamilies
+        {
+            get
+            {
+                yield break;
+            }
+        }
+
     }
 
 }

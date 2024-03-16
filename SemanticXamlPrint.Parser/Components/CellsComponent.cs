@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SemanticXamlPrint.Parser.Components
 {
@@ -8,6 +9,7 @@ namespace SemanticXamlPrint.Parser.Components
         public string Name => Type.Name;
         public Type Type => this.GetType();
         public List<IXamlComponent> Children { get; private set; } = new List<IXamlComponent>();
+        
         public bool TrySetProperty(string propertyName, string value)
         {
             try
@@ -27,6 +29,18 @@ namespace SemanticXamlPrint.Parser.Components
         {
             if (child.Type != typeof(CellComponent)) throw new Exception($"[{Name}] can only contain child elements of type: [{nameof(CellComponent)}]");
             Children.Add(child);
+        }
+        public IEnumerable<string> ReferencedFontFamilies
+        {
+            get
+            {
+                if (Font != null) yield return Font;
+                if (Children == null || Children.Count == 0) yield break;
+                foreach (var font in Children.SelectMany(child => child.ReferencedFontFamilies))
+                {
+                    yield return font;
+                }
+            }
         }
     }
 }

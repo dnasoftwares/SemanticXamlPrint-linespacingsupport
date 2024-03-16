@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SemanticXamlPrint.Parser.Components
 {
@@ -8,6 +9,7 @@ namespace SemanticXamlPrint.Parser.Components
         public string Name => Type.Name;
         public Type Type => this.GetType();
         public List<IXamlComponent> Children { get; private set; } = new List<IXamlComponent>();
+
         //Component Attributes
         public float MarginTop { get; set; } = 10;
         public float MarginLeft { get; set; } = 0;
@@ -54,5 +56,18 @@ namespace SemanticXamlPrint.Parser.Components
             if (child?.Name == nameof(TemplateComponent)) throw new Exception("template can not have another template as its children");
             Children.Add(child);
         }
+        public IEnumerable<string> ReferencedFontFamilies {
+            get
+            {
+                if (Font != null) yield return Font;
+                if (Children == null || Children.Count == 0) yield break;
+
+                foreach (var font in Children.SelectMany(child => child.ReferencedFontFamilies))
+                {
+                    yield return font;
+                }
+            }
+        }
+
     }
 }

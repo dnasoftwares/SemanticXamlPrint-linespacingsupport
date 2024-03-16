@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace SemanticXamlPrint.Parser.Components
 {
@@ -6,7 +7,8 @@ namespace SemanticXamlPrint.Parser.Components
     {
         public string Font { get; set; } = null;
         public string FontStyle { get; set; } = null;
-        public int FontSize { get; set; } = 0;
+        public float FontSize { get; set; } = 0;
+        public int LineHeight { get; set; }=Int32.MinValue;
         public string Align { get; set; } = null;
         public string Color { get; set; } = null;
         public List<XamlComponentCustomProperty> CustomProperties { get; private set; } = new List<XamlComponentCustomProperty>();
@@ -26,7 +28,7 @@ namespace SemanticXamlPrint.Parser.Components
                         FontStyle = value;
                         break;
                     case "fontsize":
-                        FontSize = int.TryParse(value, out int fontSize) ? fontSize : 0;
+                        FontSize = float.TryParse(value, out float fontSize) ? fontSize : 0;
                         break;
                     case "align":
                         Align = value;
@@ -39,6 +41,9 @@ namespace SemanticXamlPrint.Parser.Components
                         break;
                     case "color":
                         Color = value;
+                        break;
+                    case "lineheight":
+                        LineHeight= int.TryParse(value, out int lineHeight) ? lineHeight : 0;
                         break;
                     default:
                         return false;

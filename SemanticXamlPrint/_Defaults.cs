@@ -8,7 +8,8 @@ namespace SemanticXamlPrint
         {
             Font = new Font("Calibri", 12, FontStyle.Regular),
             StringFormat = new StringFormat { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Near },
-            Brush = Brushes.Black
+            Brush = Brushes.Black,
+            FontLineHeight = 0
         };
     }
 }

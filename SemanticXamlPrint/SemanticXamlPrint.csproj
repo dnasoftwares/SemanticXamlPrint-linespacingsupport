@@ -1,47 +1,44 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-	<PropertyGroup>
-		<TargetFramework>netstandard2.0</TargetFramework>
-		<AssemblyVersion>4.0.2.1</AssemblyVersion>
-		<FileVersion>4.0.2.1</FileVersion>
-		<Version>4.0.2</Version>
-		<ApplicationIcon>SemanticXamlPrint.ico</ApplicationIcon>
-		<PackageIcon>SemanticXamlPrint.jpg</PackageIcon>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-	</PropertyGroup>
-
-	<ItemGroup>
-		<Content Include="SemanticXamlPrint.ico" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Include="..\README.md">
-			<Pack>True</Pack>
-			<PackagePath>\</PackagePath>
-		</None>
-		<None Include="SemanticXamlPrint.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<PackageReference Include="QRCoder" Version="1.4.3" />
-		<PackageReference Include="System.Drawing.Common" Version="6.0.0" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <ProjectReference Include="..\SemanticXamlPrint.Parser\SemanticXamlPrint.Parser.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Reference Include="QRCoder">
-			<HintPath>QRCoder.dll</HintPath>
-		</Reference>
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Update="SemanticXamlPrint.jpg">
-			<Pack>True</Pack>
-			<PackagePath>\</PackagePath>
-		</None>
-	</ItemGroup>
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyVersion>4.0.2.1</AssemblyVersion>
+    <FileVersion>4.0.2.1</FileVersion>
+    <Version>4.0.2</Version>
+    <ApplicationIcon>SemanticXamlPrint.ico</ApplicationIcon>
+    <PackageIcon>SemanticXamlPrint.jpg</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="SemanticXamlPrint.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="SemanticXamlPrint.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="QRCoder" Version="1.4.1" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SemanticXamlPrint.Parser\SemanticXamlPrint.Parser.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="draw-string-line-height">
+      <HintPath>D:\projects\git\draw-string-line-height\src\bin\Release\net8.0\draw-string-line-height.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="QRCoder">
+      <HintPath>QRCoder.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="SemanticXamlPrint.jpg">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 </Project>
