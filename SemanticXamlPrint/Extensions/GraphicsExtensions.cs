@@ -32,7 +32,14 @@ namespace SemanticXamlPrint
                 string imageSource = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, imageComponent.Source ?? "default.png");
                 if (File.Exists(imageSource))
                 {
-                    currentY += graphics.DrawImageCenteredAndReturnHeight(Image.FromFile(imageSource), currentX, currentY, imageComponent.Width, imageComponent.Height, maxLayoutWidth);
+                    var img = Image.FromFile(imageSource);
+                    if (img is Bitmap)
+                    {
+                        var bmp = img as Bitmap;
+                        bmp.SetResolution(graphics.DpiX, graphics.DpiY);
+                    }
+
+                    currentY += graphics.DrawImageCenteredAndReturnHeight(img, currentX, currentY, imageComponent.Width, imageComponent.Height, maxLayoutWidth);
                 }
             }
             else if (component.Type == typeof(QRCodeComponent))
@@ -175,9 +182,9 @@ namespace SemanticXamlPrint
         }
         public static int DrawImageCenteredAndReturnHeight(this Graphics graphics, Image image, float x, float y, float maxWidth, float maxHeight, float maxLayoutWith)
         {
-
-            float newWidth = Math.Min(image.Height, maxWidth > 0 ? maxWidth : image.Width);
-            float newHeight = Math.Min(image.Height, maxHeight > 0 ? maxHeight : image.Height);
+            graphics.InterpolationMode = InterpolationMode.NearestNeighbor;
+            float newWidth = Math.Min(image.Width * 100/image.HorizontalResolution, maxWidth > 0 ? maxWidth : image.Width * 100 / image.HorizontalResolution);
+            float newHeight = Math.Min(image.Height * 100 / image.VerticalResolution, maxHeight > 0 ? maxHeight : image.Height* 100 / image.VerticalResolution);
             float centeredX = x + (maxLayoutWith - newWidth) / 2;
             graphics.DrawImage(image, centeredX > 0 ? centeredX : x, y, newWidth, newHeight);
             return (int)newHeight;

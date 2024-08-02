@@ -24,13 +24,12 @@
     <PackageReference Include="System.Drawing.Common" Version="8.0.2" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\draw-string-line-height\src\draw-string-line-height.csproj">
+      <Private>True</Private>
+    </ProjectReference>
     <ProjectReference Include="..\SemanticXamlPrint.Parser\SemanticXamlPrint.Parser.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="draw-string-line-height">
-      <HintPath>D:\projects\git\draw-string-line-height\src\bin\Release\net8.0\draw-string-line-height.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="QRCoder">
       <HintPath>QRCoder.dll</HintPath>
     </Reference>
